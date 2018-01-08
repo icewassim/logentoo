@@ -12,22 +12,22 @@ class AutoCompleteList extends Component {
 
   render() {
     if(!this.props.suggestions) {
-      return <div> loading </div>;
+      return <span></span>;
     }
 
     const SearchSuggestionsJSX = this.props.suggestions.map((elm, idx) => {
       return (
-        <div key={ idx }>
+        <div key={idx}>
           <AutoCompleteListItem
-            city={ elm }
+            city={elm}
           />
         </div>
       );
     });
 
     return (
-      <div>
-        { SearchSuggestionsJSX }
+      <div onClick={this.props.resetSearchTerm}>
+        {SearchSuggestionsJSX}
       </div>
     );
   }

@@ -26,15 +26,19 @@ class SearchBar extends Component {
     return;
   }
 
+  resetInputValue() {
+    this.setState({ searchTerm: '' });
+  }
+
   render() {
     return (
       <div>
         <input
           placeholder='Code Postal ou Commune'
-          onChange={ this.onSearchChange }
-          value={ this.state.searchTerm }
+          onChange={this.onSearchChange}
+          value={this.state.searchTerm}
         />
-        <AutoCompleteList />
+        <AutoCompleteList resetSearchTerm={this.resetInputValue.bind(this)}/>
       </div>
     )
   }
