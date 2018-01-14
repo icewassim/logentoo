@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import AutoCompleteListItem from './autocomplete_list_item';
 
 class AutoCompleteList extends Component {
-  consturctor(props) {
-    this.super(props);
+  constructor(props) {
+    super(props);
     this.state = { suggestions: [] };
   }
 
@@ -19,6 +19,7 @@ class AutoCompleteList extends Component {
       return (
         <div key={idx}>
           <AutoCompleteListItem
+            selectCity={this.props.selectCity.bind(this)}
             city={elm}
           />
         </div>
@@ -26,7 +27,7 @@ class AutoCompleteList extends Component {
     });
 
     return (
-      <div onClick={this.props.resetSearchTerm}>
+      <div>
         {SearchSuggestionsJSX}
       </div>
     );

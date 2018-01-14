@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { fetchRentCreator } from '../../actions/fetch_rent_by_zipcode';
 
 class AutoCompleteListItem extends Component {
-  consturctor(props) {
-    this.super(props);
+  constructor(props) {
+    super(props);
   }
 
   updateParamsWithZipCode(zipCode) {
@@ -18,6 +18,10 @@ class AutoCompleteListItem extends Component {
     }
 
     const searchParams = JSON.parse(localStorage.getItem('searchParams'));
+    if (!searchParams.zipCodes) {
+      searchParams.zipCodes = [];
+    }
+
     if (searchParams.zipCodes.indexOf(zipCode) === -1) {
       searchParams.zipCodes.push(zipCode);
     }
@@ -32,20 +36,21 @@ class AutoCompleteListItem extends Component {
     }
 
     const searchParams = this.updateParamsWithZipCode(this.props.city.zipCode);
+    this.props.selectCity(this.props.city);
     return this.props.fetchRentCreator(searchParams);
   }
 
   render() {
     return (
-      <div onClick={this.onSelectCity.bind(this)}>
-        {this.props.city.name}
-      </div>
+        <div onClick={this.onSelectCity.bind(this)}>
+          {this.props.city.name}
+        </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({fetchRentCreator}, dispatch);
+  return bindActionCreators({ fetchRentCreator }, dispatch);
 };
 
 export default connect(null, mapDispatchToProps)(AutoCompleteListItem);

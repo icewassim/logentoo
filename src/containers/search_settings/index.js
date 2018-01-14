@@ -10,97 +10,220 @@ class SearchSettings extends Component{
     // TODO: when to initialise the state var
   }
 
-  updateInputValueMinPrice(evt) {
-    this.setState({
-      Price: {
-        min: evt.target.value,
-      }
-    })
+  loadLocalStorage() {
+    if (!JSON.parse(localStorage.getItem('searchParams'))) {
+      this.localSearchParams = {};
+      return;
+    }
+
+    this.localSearchParams = JSON.parse(localStorage.getItem('searchParams'));
   }
 
-  updateInputValueMaxPrice(evt) {
-    this.setState({
-      Price: {
-        max: evt.target.value,
-      }
-    })
-  }
-
-  updateParams(params) {
+  //load parmsbefore update
+  updateLocaStorage(params) {
+    this.loadLocalStorage();
     if (!localStorage.getItem('searchParams')) {
-        localStorage.setItem('searchParams', JSON.parse(params));
+        localStorage.setItem('searchParams', JSON.stringify(params));
         return params;
     }
 
-    const storedParams = JSON.parse(localStorage.getItem('searchParams'));
-    // TODO: es6
-    storedParams.maxPrice = params.maxPrice;
-    storedParams.minPrice = params.minPrice;
 
-    localStorage.setItem('searchParams', JSON.stringify(storedParams));
-    return storedParams;
+    // TODO: es6 , foreach, hasownProperty
+    for(let key in params) {
+      if(params.hasOwnProperty(key)) {
+        this.localSearchParams[key] = params[key];
+      }
+    }
+
+    localStorage.setItem('searchParams', JSON.stringify(this.localSearchParams));
   }
 
   onFormSubmit(values) {
-    const searchParams = this.updateParams(values);
-    this.props.fetchRentCreator(searchParams);
+    this.updateLocaStorage(values);
+    this.props.fetchRentCreator(this.localSearchParams);
     this.props.zipCode;
   }
 
+  renderCheckBoxField(field) {
+    return (
+      <label className={field.className}>
+        {field.label}
+        <input
+          type="checkbox"
+          {...field.input}
+        />
+        <span className="control__indicator"></span>
+      </label>
+    );
+  }
+
   renderField(field) {
+    //{...field.input}
     return (
       <span>
         <input
+          className='search-card-input'
           placeholder={field.placeholder}
-          value={field.defaultVal}
           type='text'
-          {...field.input}
+          defaultValue={field.defaultValue}
+          onChange={field.input.onChange}
         />
       </span>
     );
   }
 
   render() {
+    // TODO: dissolve on lot of files
     //const handleSubmit = this.props.handleSubmit;
     const { handleSubmit } = this.props;
+    this.loadLocalStorage();
 
     return (
       <div>
         <form onSubmit={handleSubmit(this.onFormSubmit.bind(this))}>
+        <div className="search-card">
+          <div className="card-label">
+            Votre Budget:
+          </div>
+           <div className="search-input-wrapper">
+              <i className="fa fa-eur search-icon"></i>
+              <Field
+                name='maxPrice'
+                placeholder='Budget Max'
+                defaultValue={this.localSearchParams.maxPrice}
+                component={this.renderField}
+              />
+            </div>
+        </div>
+
+        <div className="search-card">
+          <div className="card-label">
+              Type Locateur:
+          </div>
+
+          <div className="checkbox-card-container">
             <Field
-              name='maxPrice'
-              placeholder='max Price'
-              defaultVal='2000'
+              name='isPerso'
+              label='Particulier'
+              className='control control--checkbox'
+              component={this.renderCheckBoxField}
+              defaultValue={true}
+            />
+            <Field
+              name='isPerso'
+              label='Agence'
+              className='control control--checkbox'
+              component={this.renderCheckBoxField}
+            />
+          </div>
+        </div>
+
+        <div className="search-card">
+          <div className="card-label">
+            Surface:
+          </div>
+          <div className="search-input-wrapper">
+            <i className="fa fa-home search-icon"></i>
+            <Field
+              name='minSurface'
+              placeholder='Surface Minimal'
               component={this.renderField}
             />
+          </div>
+        </div>
+
+        <div className="search-card">
+          <div className="card-label">
+              Nombre de Pieces:
+          </div>
+
+          <div className="checkbox-card-container">
+            <Field
+              name='F0'
+              label='1'
+              display='span'
+              className='control control--checkbox inline-checkbox'
+              component={this.renderCheckBoxField}
+            />
+            <Field
+              name='F1'
+              label='2'
+              display='span'
+              className='control control--checkbox inline-checkbox'
+              component={this.renderCheckBoxField}
+            />
+            <Field
+              name='F2'
+              label='3'
+              display='span'
+              className='control control--checkbox inline-checkbox'
+              component={this.renderCheckBoxField}
+            />
+            <Field
+              name='F2'
+              label='3'
+              display='span'
+              className='control control--checkbox inline-checkbox'
+              component={this.renderCheckBoxField}
+            />
+            <Field
+              name='F4'
+              label='4+'
+              display='span'
+              className='control control--checkbox inline-checkbox'
+              component={this.renderCheckBoxField}
+            />
+          </div>
+        </div>
+
+        <div className="search-card">
+          <div className="card-label">
+            Type Location:
+          </div>
+          <div className="checkbox-card-container">
+            <Field
+              name='isHouse'
+              label='Maison'
+              className='control control--checkbox'
+              component={this.renderCheckBoxField}
+              defaultValue={true}
+            />
+            <Field
+              name='isAppart'
+              label='Appartement'
+              className='control control--checkbox'
+              component={this.renderCheckBoxField}
+            />
+            <Field
+              name='isStudio'
+              label='Studio'
+              className='control control--checkbox'
+              component={this.renderCheckBoxField}
+            />
+            <Field
+              name='isParking'
+              label='Parking, Garage'
+              className='control control--checkbox'
+              component={this.renderCheckBoxField}
+            />
+            <Field
+              name='isCommercial'
+              label='Local Commercial'
+              className='control control--checkbox'
+              component={this.renderCheckBoxField}
+            />
+          </div>
+        </div>
+
+
             <Field
               name='minPrice'
               placeholder='min Price'
-              default='10'
+              defaultValue='0'
+              defaultValue={this.localSearchParams.minPrice}
               component={this.renderField}
             />
             <br />
-            <Field
-              name='minRooms'
-              placeholder='min Rooms'
-              component={this.renderField}
-            />
-            <Field
-              name='maxRooms'
-              placeholder='max Rooms'
-              component={this.renderField}
-            />
-            <br />
-            <Field
-              name='minSurface'
-              placeholder='min Surface'
-              component={this.renderField}
-            />
-            <Field
-              name='maxSurface'
-              placeholder='max Surface'
-              component={this.renderField}
-            />
           <input type='submit' value='rechercher' />
         </form>
       </div>
@@ -111,5 +234,6 @@ class SearchSettings extends Component{
 export default reduxForm({
   form: 'SearchSettingsForm',
 })(
+  // the first nul is for mapStateToProps calback
   connect(null, { fetchRentCreator })(SearchSettings)
 );
