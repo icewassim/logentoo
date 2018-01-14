@@ -73,6 +73,7 @@ class SearchBar extends Component {
         <AutoCompleteList
           selectCity={this.selectCity.bind(this)}
         />
+        <br />
       </div>
     )
   }

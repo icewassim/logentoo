@@ -42,8 +42,11 @@ class AutoCompleteListItem extends Component {
 
   render() {
     return (
-        <div onClick={this.onSelectCity.bind(this)}>
-          {this.props.city.name}
+        <div
+            className="auto-complete-list-item"
+            onClick={this.onSelectCity.bind(this)}
+          >
+          {this.props.city.name} ({this.props.city.zipCode})
         </div>
     );
   }

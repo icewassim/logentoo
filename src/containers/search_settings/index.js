@@ -5,21 +5,26 @@ import { connect } from 'react-redux';
 import { fetchRentCreator } from '../../actions/fetch_rent_by_zipcode';
 
 class SearchSettings extends Component{
-  consturctor(props) {
-    this.super(props);
-    // TODO: when to initialise the state var
+  constructor(props) {
+    super(props);
+    this.state = { searchParams: {}}
+    this.initializeSearch();
   }
 
   loadLocalStorage() {
     if (!JSON.parse(localStorage.getItem('searchParams'))) {
-      this.localSearchParams = {};
+      this.state.searchParams = {};
       return;
     }
 
-    this.localSearchParams = JSON.parse(localStorage.getItem('searchParams'));
+    this.state.searchParams = JSON.parse(localStorage.getItem('searchParams'));
   }
 
-  //load parmsbefore update
+  initializeSearch() {
+    this.loadLocalStorage();
+    this.props.fetchRentCreator(this.state.searchParams);
+  }
+
   updateLocaStorage(params) {
     this.loadLocalStorage();
     if (!localStorage.getItem('searchParams')) {
@@ -31,26 +36,61 @@ class SearchSettings extends Component{
     // TODO: es6 , foreach, hasownProperty
     for(let key in params) {
       if(params.hasOwnProperty(key)) {
-        this.localSearchParams[key] = params[key];
+        this.state.searchParams[key] = params[key];
       }
     }
 
-    localStorage.setItem('searchParams', JSON.stringify(this.localSearchParams));
+    localStorage.setItem('searchParams', JSON.stringify(this.state.searchParams));
   }
 
   onFormSubmit(values) {
+    debugger;
     this.updateLocaStorage(values);
-    this.props.fetchRentCreator(this.localSearchParams);
-    this.props.zipCode;
+    this.props.fetchRentCreator(this.state.searchParams);
   }
 
   renderCheckBoxField(field) {
+    //if(field.label == 'Particulier') debugger
+
+    if (field.input.value === '') {
+     field.input.value = field.defaultValue;
+    }
+
     return (
       <label className={field.className}>
         {field.label}
         <input
           type="checkbox"
+          checked={field.input.value ? "checked":""}
           {...field.input}
+        />
+        <span className="control__indicator"></span>
+      </label>
+    );
+  }
+
+  checkBoxChanged(evt) {
+    let newParam = {};
+    newParam[this.name] = this.value;
+    this.searchParamsRef.onFormSubmit(newParam);
+    return this.formCallback(evt);
+  }
+
+  renderCheckBoxFieldTest(field, other) {
+    console.log('field.input.value', other);
+    return (
+      <label className={field.className}>
+        {field.label}
+        <input
+          onChange={field.onChangeWrapper.bind({
+            name: field.name,
+            value: field.input.value,
+            formCallback: field.input.onChange,
+            fieldRef: field,
+            searchParamsRef: this,
+          })}
+          type="checkbox"
+          value="test"
         />
         <span className="control__indicator"></span>
       </label>
@@ -76,7 +116,6 @@ class SearchSettings extends Component{
     // TODO: dissolve on lot of files
     //const handleSubmit = this.props.handleSubmit;
     const { handleSubmit } = this.props;
-    this.loadLocalStorage();
 
     return (
       <div>
@@ -90,7 +129,7 @@ class SearchSettings extends Component{
               <Field
                 name='maxPrice'
                 placeholder='Budget Max'
-                defaultValue={this.localSearchParams.maxPrice}
+                defaultValue={this.state.searchParams.maxPrice}
                 component={this.renderField}
               />
             </div>
@@ -106,14 +145,17 @@ class SearchSettings extends Component{
               name='isPerso'
               label='Particulier'
               className='control control--checkbox'
-              component={this.renderCheckBoxField}
-              defaultValue={true}
+              normalize={v => !!v}
+              def={this.state.searchParams.isPerso}
+              onChangeWrapper={this.checkBoxChanged}
+              component={this.renderCheckBoxFieldTest.bind(this)}
             />
             <Field
-              name='isPerso'
+              name='isPro'
               label='Agence'
               className='control control--checkbox'
-              component={this.renderCheckBoxField}
+              defaultValue={this.state.searchParams.isPro}
+              component={this.renderCheckBoxField.bind(this)}
             />
           </div>
         </div>
@@ -220,7 +262,7 @@ class SearchSettings extends Component{
               name='minPrice'
               placeholder='min Price'
               defaultValue='0'
-              defaultValue={this.localSearchParams.minPrice}
+              defaultValue={this.state.searchParams.minPrice}
               component={this.renderField}
             />
             <br />
