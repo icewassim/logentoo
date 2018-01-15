@@ -87,7 +87,7 @@ body {
   font-size: 15px;
 }
 
-.inline-checkbox {
+.linear .control--checkbox{
   display: inline-block !important;
   margin-right: 20px;
   padding-left: 22px !important;

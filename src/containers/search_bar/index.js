@@ -85,5 +85,5 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators({ fetchZipCode }, dispatch);
 }
 
-// TODO: why null
+// null =  mapsState to props
 export default connect(null, mapDispatchToProps)(SearchBar);
