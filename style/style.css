@@ -87,7 +87,7 @@ body {
   font-size: 15px;
 }
 
-.inline-checkbox {
+.linear .control--checkbox{
   display: inline-block !important;
   margin-right: 20px;
   padding-left: 22px !important;
@@ -182,7 +182,21 @@ body {
   margin-right: 5px;
 }
 
+.rent-location-tag {
+  background-color: rgb(224, 222, 222);
+  cursor: pointer;
+}
+
+.rent-tag:hover{
+  cursor: pointer;
+  background-color: rgb(245, 61, 61);
+  color: white;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
+}
+
 .search-input-wrapper {
+  margin-bottom: -10px;
   position: relative;
 }
 
@@ -204,6 +218,21 @@ body {
 .remove-city {
   margin-left: 10px;
   font-weight: lighter;
+}
+
+.auto-complete-list-item {
+  margin-left: 12px;
+  margin-right: 9%;
+  padding: 10px;
+  border-bottom: 1px solid #9c9c9c;
+  padding-left: 15px;
+  font-weight: bold;
+  background-color: #d8d8d8;
+  cursor: pointer;
+}
+
+.auto-complete-list-item:hover {
+  background-color: #c3c3c3;
 }
 /* --------------------- -------------------- */
 .control-group {

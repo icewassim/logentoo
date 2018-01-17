@@ -73,6 +73,7 @@ class SearchBar extends Component {
         <AutoCompleteList
           selectCity={this.selectCity.bind(this)}
         />
+        <br />
       </div>
     )
   }
@@ -84,5 +85,5 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators({ fetchZipCode }, dispatch);
 }
 
-// TODO: why null
+// null =  mapsState to props
 export default connect(null, mapDispatchToProps)(SearchBar);
