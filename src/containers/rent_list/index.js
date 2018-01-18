@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 
 import { RentListItem } from './rent_list_item';
 
-
 class RentList extends Component{
-  consturctor(props) {
-    this.super(props);
+  constructor(props) {
+    super(props);
     this.state = { rentQueryResult: [] };
   }
 

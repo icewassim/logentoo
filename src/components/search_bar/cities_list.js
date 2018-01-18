@@ -5,6 +5,10 @@ export default class CitiesList extends Component{
     super(props);
   }
 
+  handleClick(city) {
+    this.props.removeCity(city);
+  }
+
   render() {
     if(!this.props.cities) {
       return <span></span>;
@@ -12,7 +16,7 @@ export default class CitiesList extends Component{
 
     const JSXCitiesList = this.props.cities.map((city, idx) => {
       return (
-        <div key={idx} className="rent-tag red-tag">
+        <div key={idx} className="rent-tag red-tag" onClick={() => this.handleClick(city)}>
          {city.name}
          <i className="fa fa-close remove-city" ></i>
         </div>

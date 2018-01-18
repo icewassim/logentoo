@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import { fetchRentCreator } from '../../actions/fetch_rent_by_zipcode';
 import { fetchZipCode } from '../../actions/fetch_zipcode';
 import AutoCompleteList from './autocomplete_list';
-import CitiesList  from '../../components/cities_list';
+import CitiesList  from '../../components/search_bar/cities_list';
 
 class SearchBar extends Component {
   constructor(props) {
     super(props);
     let selectedCities = [];
-    if (localStorage.getItem('selectedCities')) {
-      selectedCities = JSON.parse(localStorage.getItem('selectedCities'));
+    if (localStorage.getItem('searchParams')) {
+      selectedCities = JSON.parse(localStorage.getItem('searchParams')).cities || [];
     }
 
     this.state = {
@@ -19,6 +20,7 @@ class SearchBar extends Component {
       autocompleCities: [],
       selectedCities,
      };
+
     this.onSearchChange = this.onSearchChange.bind(this);
   }
 
@@ -27,40 +29,76 @@ class SearchBar extends Component {
     this.setState({ searchTerm });
 
     if (searchTerm.length > 2) {
-      // TODO: actionCreator needs to be accessed from props
+      // TODO: why actionCreator needs to be accessed from props
+      // TODO: because it was connected via mapactionstoprps
       return this.props.fetchZipCode(this.state.searchTerm);
     }
     return;
   }
 
   selectCity(city) {
-    let localSelectedCities = [];
-    if (localStorage.getItem('selectedCities')) {
-      localSelectedCities = JSON.parse(localStorage.getItem('selectedCities'));
+    let localSearchParams = {};
+    if (localStorage.getItem('searchParams')) {
+      localSearchParams = JSON.parse(localStorage.getItem('searchParams'));
     }
 
-    // TODO: refacto redond, the only source of truth
     // check if already exists
-    const doubles = localSelectedCities.filter(localStorageCity => {
-      return localStorageCity.zipCode === city.zipCode;
-    }).length
+    let doubles = 0;
+    if (localSearchParams.cities && localSearchParams.cities.length > 0) {
+       doubles = localSearchParams.cities.filter(localCity => {
+        return localCity.zipCode === city.zipCode;
+      }).length;
+    }
 
     let newState = {
       searchTerm: '',
     }
 
     if(doubles === 0) {
-      localStorage.setItem('selectedCities', JSON.stringify([city, ...localSelectedCities]));
-      newState.selectedCities = [city, ...this.state.selectedCities];
+      localSearchParams.cities = [city, ...this.state.selectedCities];
+      localStorage.setItem('searchParams', JSON.stringify(localSearchParams));
+      newState.selectedCities = localSearchParams.cities;
     }
 
-    this.setState(newState);
+    return Promise.all[
+      this.props.fetchRentCreator(localSearchParams),
+      this.setState(newState)
+    ];
+  }
+
+  removeCity(city) {
+    let localSearchParams = [];
+
+    if (localStorage.getItem('searchParams')) {
+      localSearchParams = JSON.parse(localStorage.getItem('searchParams'));
+    }
+
+    if (!localSearchParams.cities || localSearchParams.cities.length === 0) {
+      return;
+    }
+
+    const filtredCities = localSearchParams.cities.filter(localCity => {
+      return localCity.zipCode !== city.zipCode;
+    });
+
+    localSearchParams.cities = filtredCities;
+    localStorage.setItem('searchParams', JSON.stringify(localSearchParams));
+
+    return Promise.all[
+      this.props.fetchRentCreator(localSearchParams),
+      this.setState({
+        selectedCities:filtredCities,
+      })
+    ]
   }
 
   render() {
     return (
       <div>
-        <CitiesList cities={this.state.selectedCities} />
+        <CitiesList
+          cities={this.state.selectedCities}
+          removeCity={this.removeCity.bind(this)}
+        />
         <div className="search-input-wrapper">
           <i className="fa fa-search search-icon"></i>
           <input
@@ -82,7 +120,7 @@ class SearchBar extends Component {
 // TODO: review diagram , role of dispatch and actop creatpr
 // TODO: understand are we binding actions, or props
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ fetchZipCode }, dispatch);
+  return bindActionCreators({ fetchZipCode, fetchRentCreator }, dispatch);
 }
 
 // null =  mapsState to props

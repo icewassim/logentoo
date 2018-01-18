@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 
 export class RentListItem extends Component{
-  consturctor(props) {
-    this.super(props);
+  constructor(props) {
+    super(props);
+    this.state = { visited: true };
+  }
+
+  selectCity(name, zipCode) {
+    // TODO: extract select city from searchbar index to an action actionCreator
+    // and call it here
   }
 
   render() {
@@ -14,7 +20,9 @@ export class RentListItem extends Component{
         </div>
         <div className="rent-tags-container">
 
-          <div className="rent-tag rent-location-tag">
+          <div className="rent-tag rent-location-tag"
+              onClick={this.selectCity(itemProps.city, itemProps.zipCode)}
+            >
             <i className="fa fa-map-marker" ></i>
             {itemProps.city}
           </div>

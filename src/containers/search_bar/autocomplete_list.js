@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import AutoCompleteListItem from './autocomplete_list_item';
+import AutoCompleteListItem from '../../components/search_bar/autocomplete_list_item';
 
 class AutoCompleteList extends Component {
   constructor(props) {
