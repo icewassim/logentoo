@@ -14,9 +14,9 @@ class RentList extends Component{
       return <div></div>;
     }
 
-    const JSXRentListItems = this.props.rentQueryResult.map((item, idx) => {
+    const JSXRentListItems = this.props.rentQueryResult.map(item => {
       return (
-        <div key={idx}>
+        <div key={item._id}>
           <RentListItem item={item} />
         </div>
       );

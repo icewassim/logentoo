@@ -1,13 +1,18 @@
 import exios from 'axios';
 
-// TODO:  move to config
-const API_ROOT_URL = `http://localhost:3000/zipcode/`;
-export const FETCH_ZIPCODE = 'FETCH_ZIPCODE';
+import { fetchZipCodeConf } from '../config/actions.conf';
 
 export const fetchZipCode = (searchTerm) => {
-  const requestApi = exios.get(API_ROOT_URL + searchTerm);
+  if (!searchTerm || searchTerm === '') {
+    return {
+      type: fetchZipCodeConf.TYPE,
+      payload: [],
+    }
+  }
+
+  const requestApi = exios.get(fetchZipCodeConf.ROOT_URL + searchTerm);
   return {
-    type: FETCH_ZIPCODE,
+    type: fetchZipCodeConf.TYPE,
     payload: requestApi,
   }
 };

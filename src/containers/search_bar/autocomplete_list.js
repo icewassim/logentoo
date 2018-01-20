@@ -1,10 +1,10 @@
 // TODO: map state to props , display suggestion
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
+// TODO: component
 import AutoCompleteListItem from '../../components/search_bar/autocomplete_list_item';
 
-class AutoCompleteList extends Component {
+export default class AutoCompleteList extends Component {
   constructor(props) {
     super(props);
     this.state = { suggestions: [] };
@@ -15,9 +15,9 @@ class AutoCompleteList extends Component {
       return <span></span>;
     }
 
-    const SearchSuggestionsJSX = this.props.suggestions.map((elm, idx) => {
+    const SearchSuggestionsJSX = this.props.suggestions.map(elm => {
       return (
-        <div key={idx}>
+        <div key={elm.zipCode}>
           <AutoCompleteListItem
             selectCity={this.props.selectCity.bind(this)}
             city={elm}
@@ -33,11 +33,3 @@ class AutoCompleteList extends Component {
     );
   }
 }
-
-const mapStateToProps = state => {
-  return {
-    suggestions: state.autocompleCities,
-  }
-};
-
-export default connect(mapStateToProps)(AutoCompleteList);

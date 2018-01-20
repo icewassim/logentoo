@@ -87,5 +87,8 @@ export const fieldsNames = [
   'F1',
   'F2',
   'F2',
-  'F4'
+  'F4',
+  'cities',
 ];
+
+export const defaultSearchConfig = '{\"isPro\":true,\"isPerso\":true,\"maxPrice\":\"12000\",\"isMaison\":true,\"isAppart\":true,\"isStudio\":true,\"isParking\":true,\"isCommercial\":true,\"F0\":true,\"F1\":true,\"F2\":true,\"F4\":true}';

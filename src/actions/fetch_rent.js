@@ -1,17 +1,17 @@
 import axios from 'axios';
-import actionsConfig from '../config/actions.conf.js';
 
-const ROOT_URL = 'http://localhost:3000/articles-post';
+import { fetchRentConf } from '../config/actions.conf.js';
 
 export const fetchRentCreator = (searchParams) => {
   let zipCodes = [];
+
   if (searchParams.cities && searchParams.cities.length > 0) {
     zipCodes = searchParams.cities.map(city => {
       return city.zipCode;
     });
   }
 
-  const fetchRequest = axios.post(ROOT_URL, {
+  const fetchRequest = axios.post(fetchRentConf.ROOT_URL, {
      zipCodes,
      isPerso: searchParams.isPerso,
      isPro: searchParams.isPro,
@@ -25,7 +25,7 @@ export const fetchRentCreator = (searchParams) => {
    });
 
   return {
-    type: actionsConfig.FETCH_RENT_BY_ZIPCODE,
+    type: fetchRentConf.TYPE,
     payload: fetchRequest,
   };
 };

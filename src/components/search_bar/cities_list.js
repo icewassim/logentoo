@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 
 export default class CitiesList extends Component{
-  constructor(props){
-    super(props);
-  }
-
   handleClick(city) {
     this.props.removeCity(city);
   }
@@ -14,9 +10,9 @@ export default class CitiesList extends Component{
       return <span></span>;
     }
 
-    const JSXCitiesList = this.props.cities.map((city, idx) => {
+    const JSXCitiesList = this.props.cities.map(city => {
       return (
-        <div key={idx} className="rent-tag red-tag" onClick={() => this.handleClick(city)}>
+        <div key={city.zipCode} className="rent-tag red-tag" onClick={this.handleClick.bind(this, city)}>
          {city.name}
          <i className="fa fa-close remove-city" ></i>
         </div>

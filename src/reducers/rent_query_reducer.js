@@ -1,6 +1,8 @@
+import { fetchRentConf } from '../config/actions.conf';
+
 export const rentQueryReducer = (state = null, action) => {
   switch (action.type) {
-    case 'FETCH_RENT_BY_ZIPCODE':
+    case fetchRentConf.TYPE:
       return action.payload.data;
     default:
   }

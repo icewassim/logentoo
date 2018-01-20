@@ -2,8 +2,11 @@ import React , { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { fetchRentCreator } from '../../actions/fetch_rent_by_zipcode';
-import Checkbox from '../../components/checkbox';
+import { defaultSearchConfig } from '../../config/search_form_conf';
+import { fetchRentCreator } from '../../actions/fetch_rent';
+import SearchBox from '../../components/search_form/search_box';
+import Checkbox from '../../components/search_form/checkbox';
+
 import {
   typeLocaterBox,
   nbrPieceBox,
@@ -26,7 +29,8 @@ class SearchSettings extends Component{
 
   mountLocalStorageToState() {
     if (!JSON.parse(localStorage.getItem('searchParams'))) {
-      this.state = {};
+      localStorage.setItem('searchParams', defaultSearchConfig);
+      this.state = JSON.parse(defaultSearchConfig);
       return;
     }
 
@@ -86,7 +90,7 @@ class SearchSettings extends Component{
          <div className="search-input-wrapper">
             <i className={fieldConf.iconClassName}></i>
             <input
-              name='maxPrice'
+              name={fieldConf.name}
               placeholder={fieldConf.placeholder}
               className='search-card-input'
               value={this.state[fieldConf.name]}
@@ -108,37 +112,25 @@ class SearchSettings extends Component{
     return (
       <div>
         <form onSubmit={this.onFormSubmit}>
-
           {MaxBudgetJSX}
 
-          <div className="search-card">
-            <div className="card-label">
-                Type Locateur:
-            </div>
-            <div className="checkbox-card-container">
-              {TypeLocateurJSX}
-            </div>
-          </div>
+          <SearchBox
+            label='Type Locateur'
+            JSXContent={TypeLocateurJSX}
+          />
 
           {MinSurfaceJSX}
 
-          <div className="search-card">
-            <div className="card-label">
-                Nombre de Pieces:
-            </div>
-            <div className="checkbox-card-container linear">
-              {NbrPieceJSX}
-            </div>
-          </div>
+          <SearchBox
+            label='Nombre de Pieces'
+            JSXContent={NbrPieceJSX}
+            isLinear={true}
+          />
 
-          <div className="search-card">
-            <div className="card-label">
-              Type Location:
-            </div>
-            <div className="checkbox-card-container">
-              {TypeLocationJSX}
-            </div>
-          </div>
+          <SearchBox
+            label='Type Location'
+            JSXContent={TypeLocationJSX}
+          />
 
         </form>
       </div>

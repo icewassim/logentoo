@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { fetchRentCreator } from '../../actions/fetch_rent_by_zipcode';
+import { fetchRentCreator } from '../../actions/fetch_rent';
 import { fetchZipCode } from '../../actions/fetch_zipcode';
 import AutoCompleteList from './autocomplete_list';
 import CitiesList  from '../../components/search_bar/cities_list';
@@ -17,10 +17,10 @@ class SearchBar extends Component {
 
     this.state = {
       searchTerm: '',
-      autocompleCities: [],
       selectedCities,
      };
 
+    this.keyDownTimeout = 0;
     this.onSearchChange = this.onSearchChange.bind(this);
   }
 
@@ -28,11 +28,16 @@ class SearchBar extends Component {
     const searchTerm = evt.target.value;
     this.setState({ searchTerm });
 
-    if (searchTerm.length > 2) {
-      // TODO: why actionCreator needs to be accessed from props
-      // TODO: because it was connected via mapactionstoprps
-      return this.props.fetchZipCode(this.state.searchTerm);
-    }
+    clearTimeout(this.keyDownTimeout);
+    this.keyDownTimeout = setTimeout(() => {
+      this.props.fetchZipCode(this.state.searchTerm);
+    }, 1000);
+
+    // if (searchTerm.length > 2) {
+    //   // TODO: why actionCreator needs to be accessed from props
+    //   // TODO: because it was connected via mapactionstoprps
+    //   return this.props.fetchZipCode(this.state.searchTerm);
+    // }
     return;
   }
 
@@ -87,7 +92,7 @@ class SearchBar extends Component {
     return Promise.all[
       this.props.fetchRentCreator(localSearchParams),
       this.setState({
-        selectedCities:filtredCities,
+        selectedCities: filtredCities,
       })
     ]
   }
@@ -110,6 +115,7 @@ class SearchBar extends Component {
         </div>
         <AutoCompleteList
           selectCity={this.selectCity.bind(this)}
+          suggestions={this.props.suggestions}
         />
         <br />
       </div>
@@ -123,5 +129,10 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators({ fetchZipCode, fetchRentCreator }, dispatch);
 }
 
-// null =  mapsState to props
-export default connect(null, mapDispatchToProps)(SearchBar);
+const mapStateToProps = state => {
+  return {
+    suggestions: state.autocompleCities,
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

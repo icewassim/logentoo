@@ -1,6 +1,9 @@
-// TODO:  regroup : fetchRent , fetchZipCode{ type , rooturl}
-const actionsConfig = {
-  FETCH_RENT_BY_ZIPCODE: 'FETCH_RENT_BY_ZIPCODE',
-}
+export const fetchRentConf =  {
+  TYPE: 'FETCH_RENT',
+  ROOT_URL: 'http://localhost:3000/articles-post',
+};
 
-export default actionsConfig;
+export const fetchZipCodeConf=  {
+  TYPE: 'FETCH_ZIPCODE',
+  ROOT_URL: 'http://localhost:3000/zipcode/',
+};
