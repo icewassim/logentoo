@@ -17,7 +17,7 @@ export const fetchRentCreator = (searchParams) => {
      isPro: searchParams.isPro,
      isMaison: searchParams.isMaison,
      isAppart: searchParams.isAppart,
-     // TODO: nbr pieces
+     // TODO: nbr pieces & surface minimal
      price: {
        upper: parseInt(searchParams.maxPrice),
        lower: 0,

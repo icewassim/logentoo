@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export class RentListItem extends Component{
+export class RentsListItem extends Component {
   constructor(props) {
     super(props);
     this.state = { visited: true };
@@ -19,8 +19,8 @@ export class RentListItem extends Component{
           {itemProps.title}
         </div>
         <div className="rent-tags-container">
-
-          <div className="rent-tag rent-location-tag"
+            <div
+              className="rent-tag rent-location-tag"
               onClick={this.selectCity(itemProps.city, itemProps.zipCode)}
             >
             <i className="fa fa-map-marker" ></i>
@@ -40,7 +40,7 @@ export class RentListItem extends Component{
 
           <div className="rent-price">
             {itemProps.price}
-            <i className="fa fa-eur"> </i>
+            <i className="fa fa-eur"></i>
           </div>
           <img src={itemProps.imgSrc} />
         </div>

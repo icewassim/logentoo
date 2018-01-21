@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { RentListItem } from './rent_list_item';
+import { RentsListItem } from '../../components/rents_list/rents_list_item';
 
-class RentList extends Component{
+class RentsList extends Component{
   constructor(props) {
     super(props);
     this.state = { rentQueryResult: [] };
@@ -17,7 +17,7 @@ class RentList extends Component{
     const JSXRentListItems = this.props.rentQueryResult.map(item => {
       return (
         <div key={item._id}>
-          <RentListItem item={item} />
+          <RentsListItem item={item} />
         </div>
       );
     })
@@ -31,4 +31,4 @@ const mapStateToProps = (state) => {
   };
 }
 
-export default connect(mapStateToProps)(RentList);
+export default connect(mapStateToProps)(RentsList);

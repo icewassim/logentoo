@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import SearchBar from '../containers/search_bar/index';
-import RentList from '../containers/rent_list/index';
+import RentsList from '../containers/rents_list/index';
 import SearchSettings from '../containers/search_form/index';
 
 export const App = () => {
@@ -35,7 +35,7 @@ export const App = () => {
               <i className="fa fa-sort-amount-asc"></i>
             </span>
           </div>
-          <RentList />
+          <RentsList />
         </div>
 
       </div>

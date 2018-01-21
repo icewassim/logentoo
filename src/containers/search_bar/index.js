@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { fetchRentCreator } from '../../actions/fetch_rent';
 import { fetchZipCode } from '../../actions/fetch_zipcode';
-import AutoCompleteList from './autocomplete_list';
+import AutoCompleteList from '../../components/search_bar/autocomplete_list';
 import CitiesList  from '../../components/search_bar/cities_list';
 
 class SearchBar extends Component {

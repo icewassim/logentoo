@@ -1,8 +1,6 @@
-// TODO: map state to props , display suggestion
 import React, { Component } from 'react';
 
-// TODO: component
-import AutoCompleteListItem from '../../components/search_bar/autocomplete_list_item';
+import AutoCompleteListItem from './autocomplete_list_item';
 
 export default class AutoCompleteList extends Component {
   constructor(props) {
