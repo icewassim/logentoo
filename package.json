@@ -5,7 +5,10 @@
   "main": "index.js",
   "repository": "git@github.com:icewassim/logentoo-front.git",
   "scripts": {
-    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "start": "parallelshell \"npm run webpack-back\" \"npm run nodemon\" \"npm run webpack-front\"",
+    "webpack-front": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config ./webpack.config.front.js --hot --port 8080",
+    "webpack-back": "node ./node_modules/webpack/bin/webpack.js --config ./webpack.config.back.js  --progress --watch",
+    "nodemon": "nodemon bin/server.js --watch bin/server.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "test:watch": "npm run test -- --watch"
   },
@@ -18,22 +21,36 @@
     "babel-preset-react": "^6.1.18",
     "chai": "^3.5.0",
     "chai-jquery": "^2.0.0",
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.5.1",
     "jquery": "^2.2.1",
     "jsdom": "^8.1.0",
     "mocha": "^2.4.5",
+    "nodemon": "^1.14.11",
+    "parallelshell": "^3.0.2",
     "react-addons-test-utils": "^0.14.7",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0"
   },
   "dependencies": {
     "axios": "^0.17.1",
+    "babel-eslint": "^8.2.1",
     "babel-preset-stage-1": "^6.1.18",
+    "bunyan": "^1.8.12",
+    "bunyan-winston-adapter": "^0.2.0",
     "lodash": "^3.10.1",
+    "mongoose": "^5.0.1",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-redux": "4.3.0",
     "react-router": "^2.0.1",
     "redux": "^3.0.4",
-    "redux-promise": "^0.5.3"
+    "redux-promise": "^0.5.3",
+    "restify": "^4.3.0",
+    "restify-errors": "^4.3.0",
+    "winston": "^2.4.0"
   }
 }
