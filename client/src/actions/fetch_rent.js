@@ -9,7 +9,7 @@ const fetchRentCreator = (searchParams) => {
   }
 
   const rooms = [];
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 6; i++) {
     if (searchParams[`F${i}`]) {
       rooms.push(i + 1);
     }
@@ -22,6 +22,7 @@ const fetchRentCreator = (searchParams) => {
     isPerso: searchParams.isPerso + 0,
     isPro: searchParams.isPro + 0,
     isMaison: searchParams.isMaison,
+    isStudio: searchParams.isStudio,
     isAppart: searchParams.isAppart,
     sort: searchParams.sort,
     minSurface: parseInt(searchParams.minSurface, 10),

@@ -3,9 +3,9 @@ import React, { PropTypes } from 'react';
 function RentsListItem({ item }) {
   return (
     <div className="rent-item-container">
-      <div className="rent-item-title">
+      <a className="rent-item-title" href={item.link} target="_blank" >
         {item.title}
-      </div>
+      </a>
       <div className="rent-tags-container">
         <div className="rent-tag rent-location-tag">
           <i className="fa fa-map-marker" />
@@ -27,7 +27,15 @@ function RentsListItem({ item }) {
           {item.price}
           <i className="fa fa-eur" />
         </div>
-        <img src={item.imgSrc} alt={item.title} />
+
+        <div className={"rent-tag source-tag-" + item.source}>
+          {item.source === 0 && "leboncoin"}
+          {item.source === 1 && "pap.fr"}
+          {item.source === 2 && "seloger"}
+        </div>
+        <a className="rent-item-title" href={item.link} target="_blank" >
+          <img src={item.imgSrc} alt={item.title} />
+        </a>
       </div>
     </div>
   );

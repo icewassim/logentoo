@@ -25,7 +25,7 @@ export default class AutoCompleteList extends Component {
     });
 
     return (
-      <div>
+      <div className="autocomplete-list">
         {SearchSuggestionsJSX}
       </div>
     );

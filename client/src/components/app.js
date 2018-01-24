@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 import SearchBar from '../containers/search_bar/index';
 import RentsList from '../containers/rents_list/index';

@@ -6,6 +6,7 @@ import fetchRentCreator from '../../actions/fetch_rent';
 import fetchZipCode from '../../actions/fetch_zipcode';
 import AutoCompleteList from '../../components/search_bar/autocomplete_list';
 import CitiesList from '../../components/search_bar/cities_list';
+import { defaultSearchConfig } from '../../config/search_form_conf';
 
 class SearchBar extends Component {
   constructor(props) {
@@ -45,6 +46,8 @@ class SearchBar extends Component {
     let localSearchParams = {};
     if (localStorage.getItem('searchParams')) {
       localSearchParams = JSON.parse(localStorage.getItem('searchParams'));
+    } else {
+      localSearchParams = JSON.parse(defaultSearchConfig);
     }
 
     // check if already exists
@@ -100,10 +103,6 @@ class SearchBar extends Component {
   render() {
     return (
       <div>
-        <CitiesList
-          cities={this.state.selectedCities}
-          removeCity={this.removeCity.bind(this)}
-        />
         <div className="search-input-wrapper">
           <i className="fa fa-search search-icon"></i>
           <input
@@ -116,6 +115,10 @@ class SearchBar extends Component {
         <AutoCompleteList
           selectCity={this.selectCity.bind(this)}
           suggestions={this.props.suggestions}
+        />
+        <CitiesList
+          cities={this.state.selectedCities}
+          removeCity={this.removeCity.bind(this)}
         />
         <br />
       </div>

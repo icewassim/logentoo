@@ -29,6 +29,7 @@ export const nbrPieceBox = [
   {
     name: 'F4',
     label: '4+'
+    // TODO: handle it
   }
 ];
 
@@ -89,6 +90,7 @@ export const fieldsNames = [
   'F2',
   'F3',
   'F4',
+  'F5',
   'cities',
 ];
 
