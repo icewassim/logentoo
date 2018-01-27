@@ -50,6 +50,12 @@ class SearchSettings extends Component{
     };
 
     // setState is asynchronus
+    if (localStorage.getItem('searchParams')) {
+      const localStorageSearch = JSON.parse(localStorage.getItem('searchParams'));
+      newSearchValues.cities = localStorageSearch.cities;
+      newSearchValues.sort = localStorageSearch.sort;
+    }
+
     this.setState(newSearchValues); //update state
   }
 

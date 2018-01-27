@@ -92,6 +92,7 @@ export const fieldsNames = [
   'F4',
   'F5',
   'cities',
+  'sort',
 ];
 
-export const defaultSearchConfig = '{\"isPro\":true,\"isPerso\":true,\"maxPrice\":\"12000\",\"isMaison\":true,\"isAppart\":true,\"isStudio\":true,\"isParking\":true,\"isCommercial\":true,\"F0\":true,\"F1\":true,\"F2\":true,\"F4\":true}';
+export const defaultSearchConfig = '{\"isPro\":true,\"isPerso\":true,\"maxPrice\":\"12000\",\"isMaison\":true,\"isAppart\":true,\"isStudio\":true,\"isParking\":true,\"isCommercial\":true,\"F0\":true,\"F1\":true,\"F2\":true,\"F3\":true,\"F4\":true}';
