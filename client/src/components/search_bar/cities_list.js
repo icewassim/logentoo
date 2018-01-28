@@ -6,8 +6,12 @@ export default class CitiesList extends Component{
   }
 
   render() {
-    if(!this.props.cities) {
-      return <span></span>;
+    if(!this.props.cities || this.props.cities.length === 0) {
+      return (
+        <div className="rent-tag red-tag default-rent-tag">
+        Île-de-France
+        </div>
+      );
     }
 
     const JSXCitiesList = this.props.cities.map(city => {

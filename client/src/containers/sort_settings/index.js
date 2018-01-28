@@ -8,7 +8,7 @@ class SortSettings extends Component {
   constructor(props) {
     super(props);
     if (!localStorage.getItem('searchParams')) {
-      this.state = { sortBy: 'date' };
+      this.state = { sortBy: 'price' };
     } else {
       const sortBy = JSON.parse(localStorage.getItem('searchParams')).sort || 'date';
       this.state = { sortBy: sortBy.name };
@@ -34,9 +34,9 @@ class SortSettings extends Component {
   render() {
     return (
       <select className="select" value={this.state.sortBy} onChange={this.handlSelectChange.bind(this)}>
-        <option value="date">DATE</option>
-        <option value="price">PRIX</option>
-        <option value="surface">m²</option>
+        <option value="price">Prix</option>
+        <option value="date">Date</option>
+        <option value="surface">Surface</option>
       </select>
     );
   }

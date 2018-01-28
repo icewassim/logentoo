@@ -8,9 +8,11 @@ import SortSettings from '../containers/sort_settings/index';
 const App = () => {
   return (
     <div>
-      <div className='logentoo-header'>
+      <div className='logentoo-header' >
+        <a href="/">
         <img className='logentoo-logo' src='/client/assets/images/logento.png' />
         logentoo
+        </a>
       </div>
 
       <div className="app-container">

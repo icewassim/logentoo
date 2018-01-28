@@ -16,9 +16,7 @@ function RentsListItem({ item }) {
           {item.rooms} Piéces
         </div>
 
-        <div className="rent-tag">
-          {item.surface} m²
-        </div>
+        {item.surface == 1 ? '' : <div className="rent-tag">{item.surface}  m²</div>}
 
         {item.meuble === 1 ? <div className="rent-tag">Meublé</div> : <span />}
         {item.isPerso === 1 ? <div className="rent-tag">Particulier</div> : <span />}

@@ -9,22 +9,12 @@ export default class HomePage extends Component {
     this.state = { maxPrice: '' };
   }
 
-  componentWillMount() {
-    if (localStorage.getItem('searchParams')) {
-      window.location.href = "/search";
-    }
-  }
-
   handleBudgetCHange(evt) {
     this.setState({ maxPrice: evt.target.value });
   }
 
   handleSubmit(evt) {
     evt.preventDefault();
-    if (!parseInt(this.state.maxPrice)) {
-      return;
-    }
-
     let searchParams;
     if (!localStorage.getItem('searchParams')) {
       searchParams = JSON.parse(defaultSearchConfig);;
@@ -32,7 +22,7 @@ export default class HomePage extends Component {
       searchParams = JSON.parse(localStorage.getItem('searchParams'));
     }
 
-    searchParams.maxPrice = this.state.maxPrice;
+    searchParams.maxPrice = this.state.maxPrice || 200000;
     localStorage.setItem('searchParams', JSON.stringify(searchParams));
     window.location.href = "/search";
   }
@@ -62,6 +52,7 @@ export default class HomePage extends Component {
             <input type="submit" className="rent-tag red-tag hero-btn" value="RECHERCHER" />
           </form>
         </div>
+        <div className="hero-footer" > Made with a lot of <i className="fa fa-coffee" />by <a href="http://icewassim.com"> Icewassim  </a></div>
         <img src="/client/assets/images/room-wallpaper.jpg" className="hero-wallpaper" />
         <div className="hero-cover"></div>
       </div>

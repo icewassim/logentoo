@@ -22,7 +22,7 @@ export const findRentByParams = params => {
   if (params.sort) {
     sortBy[params.sort.name] = params.sort.type;
   } else {
-    sortBy['date'] = -1;
+    sortBy['price'] = 1;
   }
 
   const query = {
