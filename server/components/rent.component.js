@@ -1,4 +1,5 @@
 import rentRepo from '../models/rent.model';
+import config from '../config';
 
 const ARTICLE_TYPE = {
   STUDIO: 0,
@@ -51,5 +52,9 @@ export const findRentByParams = params => {
   }
 
   loggerT.info('[getRentByParams] mongoQuery:', query);
-  return rentRepo.find(query).sort(sortBy);
+  return rentRepo
+    .find(query)
+    .sort(sortBy)
+    .limit(params.pageIdx || config.MAX_RENT_QUERY_RESULT)
+  ;
 };

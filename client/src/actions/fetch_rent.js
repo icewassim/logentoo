@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { fetchRentConf } from '../config/actions.conf';
 
-const fetchRentCreator = (searchParams) => {
+const fetchRentCreator = (searchParams, pageIdx) => {
   let zipCodes = [];
   if (searchParams.cities && searchParams.cities.length > 0) {
     zipCodes = searchParams.cities.map(city => city.zipCode);
@@ -30,6 +30,7 @@ const fetchRentCreator = (searchParams) => {
       upper: parseInt(searchParams.maxPrice, 10),
       lower: 0,
     },
+    pageIdx: pageIdx * 10,
   });
 
   return {

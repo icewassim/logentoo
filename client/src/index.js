@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 
 import promiseMiddleware from 'redux-promise';
 
-import { App } from './components/app';
+import App from './components/app';
 import HomePage from './components/home_page';
 import reducers from './reducers';
 

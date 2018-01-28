@@ -5,7 +5,7 @@ import RentsList from '../containers/rents_list/index';
 import SearchSettings from '../containers/search_form/index';
 import SortSettings from '../containers/sort_settings/index';
 
-export const App = () => {
+const App = () => {
   return (
     <div>
       <div className='logentoo-header'>
@@ -43,3 +43,5 @@ export const App = () => {
     </div>
   );
 };
+
+export default App;
