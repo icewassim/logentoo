@@ -1,1 +1,1 @@
-# logentoo-front
+# logentoo
