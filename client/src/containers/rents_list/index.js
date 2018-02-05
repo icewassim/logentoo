@@ -28,7 +28,6 @@ class RentsList extends Component{
       newSearchConfigDetected = true;
     }
 
-    //console.log('comparing this.state.pageIdx['+(this.state.pageIdx * 10 )+'] to this.props.rentQueryResult'+ this.props.rentQueryResult.length);
     if((this.state.pageIdx * 10) > this.props.rentQueryResult.length && !newSearchConfigDetected) {
       this.setState({ waitForLoading: true });
       return;

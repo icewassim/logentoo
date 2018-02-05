@@ -552,6 +552,11 @@ option:focus
   text-decoration: underline;
 }
 
+.cofee-footer {
+  color: #e10b1b;
+  margin-right: 4px;
+}
+
 @media (max-width: 500px) {
   .side-bar {
     /* display: none; */

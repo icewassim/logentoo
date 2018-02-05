@@ -32,7 +32,7 @@ function RentsListItem({ item }) {
           {item.source === 2 && "seloger"}
         </div>
         <a className="rent-item-title" href={item.link} target="_blank" >
-          <img src={item.imgSrc} alt={item.title} />
+          <img src={item.imgSrc || '/client/assets/images/no-thumb.png'} alt={item.title} />
         </a>
       </div>
     </div>

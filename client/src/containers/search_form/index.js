@@ -137,7 +137,10 @@ class SearchSettings extends Component{
             label='Type Location'
             JSXContent={TypeLocationJSX}
           />
-
+          <br />
+          <div>  Made with a lot of <i className="fa fa-coffee cofee-footer" />
+            by <a href="http://icewassim.com"> Icewassim  </a>
+          </div>
         </form>
       </div>
     );
